@@ -1,9 +1,20 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
+import '../components/music_tile.dart';
+
+class HomePage extends StatefulWidget {
   HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final _textController = TextEditingController();
+
+  List<MusicTile> musicTiles = [const MusicTile(), const MusicTile()];
+
 
   @override
   Widget build(BuildContext context) {
@@ -11,14 +22,17 @@ class HomePage extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            title: const Text("Music"),
+            title: const Text("Music", style: TextStyle(
+              color: Colors.white,
+              fontSize: 24
+            ),),
             centerTitle: true,
             pinned: true,
             snap: true,
             floating: true,
             backgroundColor: Theme.of(context).primaryColor,
             bottom: PreferredSize(
-                preferredSize: const Size.fromHeight(70),
+                preferredSize: const Size.fromHeight(80),
                 child: Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
@@ -35,7 +49,7 @@ class HomePage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12),
                           borderSide:
                               const BorderSide(color: Colors.transparent)),
-                      fillColor: Colors.grey.shade500,
+                      //fillColor: Colors.grey.shade500,
                       filled: true,
                       prefixIcon: const Icon(Icons.search_rounded),
                       // suffixIcon: IconButton(
@@ -53,7 +67,9 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 )),
-          )
+          ),
+        SliverList.list(children: musicTiles)
+
         ],
       ),
     );
